@@ -45,7 +45,7 @@ En tirant des points $X_p(x_p, y_p)$ selon une loi uniforme dans l'intervalle $]
 
 $P = \frac{A_{1/4d}}{A_c} = \frac{\pi}{4}$
 
-![Graphique représentant une épreuve de Monte-Carlo](res\MonteCarloGraph.png)
+![MonteCarloGraph.png](res/MonteCarloGraph.png)
 *Graphique représentant une épreuve de Monte-Carlo*
 
 En effectuant $n_{tot}$ tirages aléatoires et en comptant $n_{cible}$ points dans le quart de disque, on peut approximer $P$ par :
