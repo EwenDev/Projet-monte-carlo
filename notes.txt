@@ -1,0 +1,49 @@
+Objectif : Explorer l'utilisation de la méthode de Monte Carlo pour calculer π en exploitant le parallélisme sur des architectures à mémoire partagée et distribuée.
+Approches : Analyse de variantes parallèles (itération parallèle, maître-esclave) et évaluation de deux implémentations Java.
+Contexte : Le rapport a été en partie rédigé par ChatGPT pour simplifier et clarifier les stratégies et résultats obtenus.
+
+Monte Carlo pour calculer pi
+
+Principe : La méthode de Monte Carlo utilise une estimation probabiliste pour approximer pi à partir de tirages aléatoires.
+
+Méthode :
+Générer des points aléatoires dans un carré de côté 1.
+Compter les points situés dans un quart de disque inscrit dans le carré.
+Estimer pi en utilisant la proportion de points dans le quart de disque.
+
+Algorithme et parallélisation
+Algorithme séquentiel :
+- Générer des points aléatoires et compter ceux dans le quart de disque.
+- Calculer π à partir de la proportion de points.
+
+Parallélisation :
+- Itération parallèle : Distribuer les tirages sur plusieurs tâches indépendantes.
+    - Tâches identifiées : Génération des points et vérification de leur position.
+    - Dépendances : Accès concurrent à la variable n_cible.
+    - Solution : Utilisation de sections critiques pour protéger l'accès à n_cible.
+- Master/Worker : Diviser le travail en unités indépendantes attribuées à des processus ou threads.
+    - Principe : Le Master distribue les tâches et agrège les résultats des Workers.
+    - Avantages : Réduction des conflits d'accès, meilleure scalabilité.
+
+
+Mise en oeuvre Java
+
+Assignment102 :
+- Structure : Utilise l'API Concurrent pour paralléliser les calculs.
+- Avantages : Facile à comprendre et à mettre en œuvre.
+- Inconvénients : Surcharge de synchronisation avec AtomicInteger, limitant les performances.
+
+Pi.java :
+- Structure : Utilise des Futures et des Callables pour paralléliser le calcul.
+- Avantages : Moins de synchronisation coûteuse, meilleure scalabilité.
+- Inconvénients : Nécessite une gestion explicite des tâches et des communications entre threads.
+
+Évaluations et tests de performances
+- Scalabilité forte : Mesure la capacité à réduire le temps d'exécution en augmentant le nombre de cœurs.
+- Scalabilité faible : Mesure la capacité à maintenir un temps d'exécution constant en augmentant proportionnellement le nombre de cœurs et la charge de travail.
+
+
+Mise en oeuvre en mémoire distribuée
+- Architecture Master/Worker : Utilisation de sockets Java pour distribuer le travail entre plusieurs machines.
+    - Avantages : Meilleure scalabilité en utilisant plusieurs niveaux de parallélisme.
+    - Inconvénients : Complexité accrue dans la gestion des communications.
