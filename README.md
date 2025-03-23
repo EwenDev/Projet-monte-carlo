@@ -3,9 +3,6 @@
 <p align="center">
 Ce projet est le résultat de plusieurs travaux pratiques dans les cours de programmation avancée et de qualité de développement de BUT Informatique. Il regroupe une étude complète de performance sur l'utilisation de l'algorithme de Monte-Carlo pour estimer Pi avec de la programmation parralèle et de la mémoire distribuée. Il comprend également une partie sur la norme ISO.
 <br />
-
-<a href="#plan" align="center"><strong>Explorer la documentation »</strong></a>
-<br />
 </p>
 </div>
 <div align="center">
@@ -22,6 +19,9 @@ Ce projet est le résultat de plusieurs travaux pratiques dans les cours de prog
 
 > Réalisé par EwenDev  
 > *La rédaction et la réalisation de ce document ont été réalisés avec l'aide d'outils d'intelligence artificielle et de mes camarades de BUT Informatique.*
+
+<a href="#plan" align="center"><strong>Explorer la documentation »</strong></a>
+<br />
 
 ## Plan
 
