@@ -1,8 +1,27 @@
-# Programmation avancée - BUT 3 - 2024/2025
-> Réalisé par Ewen GILBERT  
-> *La rédaction et la réalisation des TP ont été réalisés avec l'aide d'outils d'intelligence artificielle et de mes camarades de BUT Informatique.*
+<h3 align="center">Projet Monte Carlo</h3>
 
-NOTE : Du à des problèmes avec Git, j'ai été obligé de recréer un nouveau repository pour ce TP. Je m'excuse d'avance du fait qu'il n'y ait donc pas de suivi du versionnage sur ce projet.
+<p align="center">
+Ce projet est le résultat de plusieurs travaux pratiques dans les cours de programmation avancée et de qualité de développement de BUT Informatique. Il regroupe une étude complète de performance sur l'utilisation de l'algorithme de Monte-Carlo pour estimer Pi avec de la programmation parralèle et de la mémoire distribuée. Il comprend également une partie sur la norme ISO.
+<br />
+
+<a href="#plan" align="center"><strong>Explorer la documentation »</strong></a>
+<br />
+</p>
+</div>
+<div align="center">
+
+[![Python][python]][python-url]
+[![Java][java]][java-url]
+
+[python]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white
+[python-url]: https://www.python.org/
+[java]: https://img.shields.io/badge/Java-000000?style=for-the-badge&logo=intellijidea&logoColor=white
+[java-url]: https://www.java.com/fr/
+
+</div>
+
+> Réalisé par EwenDev  
+> *La rédaction et la réalisation de ce document ont été réalisés avec l'aide d'outils d'intelligence artificielle et de mes camarades de BUT Informatique.*
 
 ## Plan
 
@@ -12,14 +31,14 @@ NOTE : Du à des problèmes avec Git, j'ai été obligé de recréer un nouveau 
   - [B - Modèle Master/Worker](#b---modèle-masterworker)
 - [III - Réalisation sur Machine](#iii---réalisation-sur-machine)
   - [A - Analyse d’Assignment102](#a---analyse-dassignment102)
-  - [B - Analyse de Pi.java](#b---analyse-de-pi.java)
+  - [B - Analyse de Pi.java](#b---analyse-de-pijava)
 - [IV - Évaluation des Performances](#iv---évaluation-des-performances)
-  - [A - Évaluation via run.py](#a---évaluation-via-runpy)
+  - [A - Évaluation via run.py](#a---évaluation-des-performances-via-runpy)
   - [B - Évaluation de la Scalabilité](#b---évaluation-de-la-scalabilité)
-    - [1. Scalabilité Forte](#1-scalabilité-forte)
-    - [2. Scalabilité Faible](#2-scalabilité-faible)
+    - [1. Scalabilité Forte](#1---scalabilité-forte)
+    - [2. Scalabilité Faible](#2---scalabilité-faible)
   - [C - Analyse des résultats de Assignment102.java](#c---analyse-des-résultats-de-assignment102java)
-  - [D - Analyse des résultats de Pi.java](#d---analyse-des-résultats-de-pi.java)
+  - [D - Analyse des résultats de Pi.java](#d---analyse-des-résultats-de-pijava)
 - [V - Mise en œuvre en mémoire distribuée](#v---mise-en-œuvre-en-mémoire-distribuée)
   - [A - Implémentation via Sockets](#a---implémentation-via-sockets)
   - [B - Tests de performance et orchestration via masterworker.py](#b---tests-de-performance-et-orchestration-via-masterworkerpy)
@@ -60,11 +79,11 @@ On en déduit que plus $n_{tot}$ est grand, plus l'estimation de $\pi$ est préc
 
 ---
 
-## II. Algorithmes et Approches de Parallélisation
+## II - Algorithmes et Approches de Parallélisation
 
 Pour accélérer le calcul de π par la méthode Monte Carlo, deux stratégies de parallélisation peuvent être envisagées : la parallélisation par itération et le modèle Master/Worker.
 
-### A. Parallélisation par Itération
+### A - Parallélisation par Itération
 
 Dans l’approche séquentielle de base, on effectue \(n_{tot}\) tirages et on incrémente un compteur pour chaque point satisfaisant la condition \(x^2 + y^2 \leq 1\). Le pseudo-code classique est le suivant :
 
@@ -117,7 +136,7 @@ pi = 4 * n_cible / n_tot;
 
 Chaque appel à `TirerPoint()` est indépendant, ce qui permet d’exécuter plusieurs tirages simultanément, à l’exception de l’incrémentation du compteur, qui doit être réalisée de façon atomique.
 
-### B. Modèle Master/Worker
+### B - Modèle Master/Worker
 
 Une autre approche consiste à adopter le paradigme Master/Worker. Ici, le travail total est découpé en sous-tâches, chaque Worker réalisant une partie des tirages de manière autonome, et le Master agrégeant ensuite les résultats.
 
@@ -163,11 +182,11 @@ pi = 4 * n_cible / n_tot;
 
 ---
 
-## III. Réalisation sur Machine
+## III - Réalisation sur Machine
 
 Dans cette section, nous examinons deux implémentations concrètes de la méthode Monte Carlo pour estimer π. L’objectif est d’identifier le modèle de programmation parallèle et le paradigme utilisé dans chaque cas, et de vérifier leur conformité avec les algorithmes présentés en Partie II.
 
-### A. Analyse d’Assignment102
+### A - Analyse d’Assignment102
 
 L’implémentation *Assignment102* exploite l’API Concurrent pour paralléliser les tirages nécessaires au calcul de π via Monte Carlo. Voici les points clés :
 
@@ -208,7 +227,7 @@ En résumé, bien que l’implémentation soit claire et fonctionnelle, les prob
 
 ---
 
-### B. Analyse de Pi.java
+### B - Analyse de Pi.java
 
 L’implémentation *Pi.java* adopte une approche différente, basée sur l’utilisation des `Future` et des `Callable` pour paralléliser le calcul de π.
 
@@ -267,7 +286,7 @@ La machine sur lesquels vont être réalisés les tests possède les spécificat
 - 12 cœurs physiques
 - 16 cœurs logiques (4 Performance-cores, 8 Efficient-cores)
 
-### A. Évaluation des performances via run.py
+### A - Évaluation des performances via run.py
 
 Pour mesurer et comparer les performances des implémentations, nous avons développé un script Python, **run.py**, qui orchestre l'exécution des tests sur les deux versions principales (notamment *Pi.java* et *Assignment102.java*). Ce script automatisé se charge de :
 
@@ -287,11 +306,11 @@ Pour mesurer et comparer les performances des implémentations, nous avons déve
 
 Ce dispositif permet une analyse fine des performances, en mettant en lumière l’impact de la parallélisation sur le temps d’exécution et la précision du calcul de π pour chaque implémentation. Il offre ainsi une base solide pour comparer l’efficacité des différentes approches et identifier les points à optimiser.
 
-### B. Évaluation de la Scalabilité
+### B - Évaluation de la Scalabilité
 
 Pour évaluer l'efficacité des implémentations, nous avons mené des tests visant à mesurer leur capacité à exploiter des ressources additionnelles. Ces tests se déclinent en deux approches distinctes : la scalabilité forte et la scalabilité faible.
 
-#### 1. Scalabilité Forte
+#### 1 - Scalabilité Forte
 
 La scalabilité forte consiste à analyser la réduction du temps d'exécution lorsque l'on augmente le nombre de processeurs, tout en conservant une charge de travail totale constante. Le gain de performance se quantifie par le **speedup**, défini comme :
 
@@ -313,7 +332,7 @@ Par exemple, pour un total de 1 000 000 de points, nous répartissons les tâche
 
 Des configurations similaires sont utilisées pour des charges globales de 10 000 000 et 100 000 000 de points.
 
-#### 2. Scalabilité Faible
+#### 2 - Scalabilité Faible
 
 La scalabilité faible évalue la capacité d'un programme à maintenir un temps d'exécution stable lorsque l'on augmente proportionnellement la charge totale avec le nombre de cœurs. Autrement dit, l'objectif est de conserver une charge identique par processeur, ce qui correspond à un speedup idéal constant (égal à 1).
 
@@ -331,7 +350,7 @@ Ces tests de scalabilité permettent de comparer de manière fine l'utilisation 
 
 ### C - Analyse des résultats de Assignment102.java
 
-#### **A. Scalabilité Faible**
+#### **A - Scalabilité Faible**
 
 Dans ce scénario, chaque cœur traite la même quantité de points (12 000 000). Le nombre total de points est donc proportionnel au nombre de cœurs.
 
@@ -362,7 +381,7 @@ Dans ce scénario, chaque cœur traite la même quantité de points (12 000 000)
 
 ---
 
-#### **B. Scalabilité Forte**
+#### **B - Scalabilité Forte**
 
 Ici, le total de points est fixé à 12 000 000. Chaque cœur en traite donc une fraction égale. On espère que le temps d’exécution diminue sensiblement quand on augmente le nombre de cœurs.
 
@@ -412,7 +431,7 @@ Dans l’ensemble, si *Assignment102* fournit des estimations correctes de π, s
 
 ### D - Analyse des résultats de Pi.java
 
-#### A. Scalabilité Faible (Pi.java)
+#### A - Scalabilité Faible (Pi.java)
 
 En **scalabilité faible**, chaque cœur traite 12 000 000 de points. Le nombre total de points est donc égal à \(12 \times \text{(nombre de cœurs)}\).
 
@@ -440,7 +459,7 @@ En **scalabilité faible**, chaque cœur traite 12 000 000 de points. Le nombre 
 
 ![Result_Pi_Faible.png](res/Result_Pi_Faible.png)
 
-#### B. Scalabilité Forte (Pi.java)
+#### B - Scalabilité Forte (Pi.java)
 
 En **scalabilité forte**, le total de points est fixé à **12 000 000** et partagé entre les cœurs.
 
@@ -488,13 +507,13 @@ En comparaison avec *Assignment102*, l’implémentation *Pi.java* fait un usage
 
 ---
 
-## V. Mise en œuvre en mémoire distribuée
+## V - Mise en œuvre en mémoire distribuée
 
 Dans cette section, nous abordons l'adaptation de notre méthode Monte Carlo pour le calcul de π à un environnement distribué. Cette approche repose sur le modèle Master/Worker implémenté à l'aide de communications par sockets. Contrairement aux implémentations en mémoire partagée, cette solution permet de répartir la charge de calcul sur plusieurs machines, chaque Worker exécutant localement la simulation Monte Carlo, tandis que le Master coordonne les échanges et agrège les résultats.
 
 ![MasterWorkerDiagram.png](res/MasterWorkerDiagram.png)
 
-### A. Implémentation via Sockets
+### A - Implémentation via Sockets
 
 Pour porter l'algorithme sur une architecture distribuée, deux classes Java principales ont été développées :
 
@@ -506,7 +525,7 @@ Pour porter l'algorithme sur une architecture distribuée, deux classes Java pri
 
 ![UML_Socket.png](res/UML_Socket.png)
 
-### B. Tests de performance et orchestration via masterworker.py
+### B - Tests de performance et orchestration via masterworker.py
 
 Pour évaluer cette implémentation distribuée, un script Python nommé **masterworker.py** a été développé. Ce script automatise l'exécution des tests et offre les fonctionnalités suivantes :
 
@@ -526,13 +545,13 @@ En résumé, cette approche par sockets démontre l’efficacité d’une mise e
 
 ---
 
-## VI. Analyse des performances de l’implémentation par Sockets
+## VI - Analyse des performances de l’implémentation par Sockets
 
 Cette section décrit les performances de l’implémentation Master/Worker utilisant des **Sockets**, puis compare les observations à celles de l’implémentation **Pi.java** en mémoire partagée.
 
-### A. Résultats Sockets
+### A - Résultats Sockets
 
-#### 1. Scalabilité Faible
+#### 1 - Scalabilité Faible
 
 En **scalabilité faible**, chaque worker traite un nombre fixe de points (12 000 000). Le total d’itérations est donc proportionnel au nombre de workers.
 
@@ -553,7 +572,7 @@ En **scalabilité faible**, chaque worker traite un nombre fixe de points (12 00
 
 ![Result_Socket_Faible.png](res/Result_Socket_Faible.png)
 
-#### 2. Scalabilité Forte
+#### 2 - Scalabilité Forte
 
 En **scalabilité forte**, on fixe le total de 12 000 000 de points, répartis équitablement entre les workers.
 
@@ -580,7 +599,7 @@ Ici, la médiane avoisine $4.28 \times 10^{-5}$. Les points se concentrent autou
 
 ![ErreurSocket.png](res/ErreurSocket.png)
 
-### B. Comparaison avec Pi.java (mémoire partagée)
+### B - Comparaison avec Pi.java (mémoire partagée)
 
 Pour rappel, l’implémentation **Pi.java** utilise un modèle Master/Worker en mémoire partagée, en recourant à des `Callable` et `Future`. Voici les grandes tendances observées avec Pi.java :
 
@@ -624,11 +643,11 @@ Le choix entre ces deux implémentations dépend donc principalement de l’envi
 
 ---
 
-## VII. Expérimentation sur plusieurs machines (Mémoire Distribuée)
+## VII - Expérimentation sur plusieurs machines (Mémoire Distribuée)
 
 Après avoir validé l’approche sockets sur une seule machine, nous avons étendu l’expérience à un environnement réellement distribué, en mobilisant plusieurs postes de la salle G26. Chaque machine héberge un ou plusieurs **WorkerSocket**, tandis qu’un **MasterSocket** dédié coordonne le calcul de π par la méthode de Monte Carlo. Cette section détaille la mise en place et les résultats obtenus.
 
-### A. Mise en place de l’expérience
+### A - Mise en place de l’expérience
 
 1. **Préparation des machines**
   - Installation de Java et désactivation du pare-feu pour autoriser les connexions sur les ports dédiés :
@@ -646,7 +665,7 @@ Après avoir validé l’approche sockets sur une seule machine, nous avons éte
 
 ![Diagramme_Memoire_Distri.png](res/Diagramme_Memoire_Distri.png)
 
-### B. Tableau récapitulatif des résultats
+### B - Tableau récapitulatif des résultats
 
 Les tests ont été menés pour un nombre de points par worker fixé à \(2 \times 10^9\). Ainsi, lorsque l’on double le nombre de workers, le total de points calculés double également. Le tableau ci-dessous regroupe les résultats : nombre de machines, nombre total de workers, nombre total de points, temps d’exécution et erreur relative moyenne.
 
@@ -662,7 +681,7 @@ Les tests ont été menés pour un nombre de points par worker fixé à \(2 \tim
 
 > **Remarque :** Chaque machine exécute **4** workers, d’où le lien entre « Nombre de machines » et « Nombre de workers ».
 
-### C. Analyse des résultats
+### C - Analyse des résultats
 
 1. **Stabilité du temps d’exécution**
   - On constate que la durée reste dans la fourchette de **70 à 72 secondes**, même lorsque le total de points passe de $2 \times 10^9$ à $1.28 \times 10^{11}$.
@@ -680,7 +699,7 @@ Les tests ont été menés pour un nombre de points par worker fixé à \(2 \tim
   - Les expériences sur une seule machine (ou un seul worker) présentaient un temps avoisinant déjà 68–70 secondes pour $2 \times 10^9$ points.
   - Ici, lorsque l’on augmente massivement le nombre de points (jusqu’à $1.28 \times 10^{11}$), le temps total **ne croît quasiment pas**, ce qui est nettement supérieur aux résultats observés en mémoire partagée sur une seule machine (où l’on finissait par saturer les ressources CPU).
 
-### D. Conclusion
+### D - Conclusion
 
 L’expérience en réseau local, mobilisant jusqu’à 16 machines (64 workers), met en évidence la **robustesse** et l’**efficacité** du modèle Master/Worker distribué :
 
